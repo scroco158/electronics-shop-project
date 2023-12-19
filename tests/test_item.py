@@ -26,5 +26,14 @@ def test_instantiate_from_csv():
 
 
 def test_string_to_number():
-    Item.string_to_number('123.123') == 123
+    assert Item.string_to_number('123.123') == 123
 
+
+def test_repr():
+    it = Item("Телевизор", 25000, 10)
+    assert repr(it) == "Item('Телевизор', 25000, 10)"
+
+
+def test_str():
+    it = Item("Телевизор", 25000, 10)
+    assert str(it) == 'Телевизор'
