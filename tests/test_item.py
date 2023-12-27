@@ -1,6 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
 import os
+from src.phone import Phone
 
 def test_calculate_total_price():
     it1 = Item("it1", 100, 10)
@@ -21,7 +22,7 @@ def test_setter_getter():
 
 
 def test_instantiate_from_csv():
-    Item.instantiate_from_csv(os.path.abspath('./src/items.csv'))
+    Item.instantiate_from_csv(os.path.abspath('../src/items.csv'))
     assert Item.all[4].name == 'Клавиатура'
 
 
@@ -37,3 +38,12 @@ def test_repr():
 def test_str():
     it = Item("Телевизор", 25000, 10)
     assert str(it) == 'Телевизор'
+
+def test_add():
+    it = Item('name', 1, 10)
+    p = Phone('name', 1, 20, 1)
+    assert it + p == 30
+    assert p + it == 30
+    assert p + 5 == None
+    assert it + 5 == None
+
