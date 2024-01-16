@@ -73,29 +73,14 @@ class Item:
             cls.all = []
             with open(filename, newline='', encoding='Windows-1251') as csvfile:
                 reader = csv.DictReader(csvfile)
-                # хочу взять первый элемент итерируемого объекта и проверить его на len
-                line_from_file = next(reader)
-                # проверяю
-                if len(line_from_file) == 3:
-                    # print(line_from_file)
-                    # приходится тут делать это присвоение потому что не могу вернуться к первому элементу
-                    # цикл который ниже начинает перебирать уже со второго элемента
-                    # ВОПРОС как мне этого избежать?
-                    #        как посмотреть первый элемент не сдвигая итератор?
-                    name = line_from_file['name']
-                    price = line_from_file['price']
-                    quantity = line_from_file['quantity']
-                    # print(name, price, quantity)
-                    cls(name, float(price), int(quantity))
-                    for row in reader:
-                        # print(row)
+                for row in reader:
+                    if len(row) == 3:
                         name = row['name']
                         price = row['price']
                         quantity = row['quantity']
-                        #print(name, price, quantity)
                         cls(name, float(price), int(quantity))
-                else:
-                    raise InstantiateCSVError('_Файл item.csv поврежден_')
+                    else:
+                        raise InstantiateCSVError('_Файл item.csv поврежден_')
         else:
             raise FileNotFoundError('_Отсутствует файл item.csv_')
     @staticmethod
